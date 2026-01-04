@@ -8,20 +8,20 @@ package com.hospital.management;
         private String bloodType;
 
         // 2. CONSTRUCTOR WITH PARAMETERS
+        public Patient(int patientId, String fullName, int age, String bloodType) {
+            setPatientId(patientId);
+            setFullName(fullName);
+            setAge(age);
+            setBloodType(bloodType);
+        }
+
+        // 3. DEFAULT CONSTRUCTOR (optional)
         public Patient() {
             this.patientId = 0;
             this.fullName = "Unknown";
             this.age = 0;
             this.bloodType = "Unknown";
         }
-
-        // 3. DEFAULT CONSTRUCTOR (optional)
-            public Patient(int patientId, String fullName, int age, String bloodType) {
-                this.patientId = patientId;
-                this.fullName = fullName;
-                this.age = age;
-                this.bloodType = bloodType;
-            }
 
         // 4. GETTERS (one for each field)
         public int getPatientId() {
@@ -36,19 +36,48 @@ package com.hospital.management;
         public String getBloodType() {
             return bloodType;
         }
-        // 5. SETTERS (one for each field)
+
+        // 5. SETTERS (one for each field) - WITH VALIDATION
         public void setPatientId(int patientId) {
-            this.patientId = patientId;
+            if (patientId > 0) {
+                this.patientId = patientId;
+            } else {
+                System.out.println("Warning: Patient ID must be positive! Setting to 0.");
+                this.patientId = 0;
+            }
         }
+
         public void setFullName(String fullName) {
-            this.fullName = fullName;
+            if (fullName != null && !fullName.trim().isEmpty()) {
+                this.fullName = fullName;
+            } else {
+                System.out.println("Warning: Name cannot be empty! Keeping current value.");
+            }
         }
+
         public void setAge(int age) {
-            this.age = age;
+            if (age >= 0 && age <= 150) {
+                this.age = age;
+            } else {
+                System.out.println("Warning: Age must be between 0 and 150! Setting to 0.");
+                this.age = 0;
+            }
         }
+
         public void setBloodType(String bloodType) {
-            this.bloodType = bloodType;
+            // Valid blood types: A+, A-, B+, B-, AB+, AB-, O+, O-
+            if (bloodType != null &&
+                    (bloodType.equals("A+") || bloodType.equals("A-") ||
+                            bloodType.equals("B+") || bloodType.equals("B-") ||
+                            bloodType.equals("AB+") || bloodType.equals("AB-") ||
+                            bloodType.equals("O+") || bloodType.equals("O-"))) {
+                this.bloodType = bloodType;
+            } else {
+                System.out.println("Warning: Invalid blood type! Setting to 'Unknown'.");
+                this.bloodType = "Unknown";
+            }
         }
+
         // 6. ADDITIONAL METHODS (minimum 2)
         public boolean isMinor() {
             return age < 18;

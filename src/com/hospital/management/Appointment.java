@@ -9,10 +9,10 @@ public class Appointment {
 
         // 2. CONSTRUCTOR WITH PARAMETERS
         public Appointment(int appointmentId, String patientName, String doctorName, String date) {
-            this.appointmentId = appointmentId;
-            this.patientName = patientName;
-            this.doctorName = doctorName;
-            this.date = date;
+            setAppointmentId(appointmentId);
+            setPatientName(patientName);
+            setDoctorName(doctorName);
+            setDate(date);
         }
 
         // 3. DEFAULT CONSTRUCTOR (optional)
@@ -40,22 +40,40 @@ public class Appointment {
             return date;
         }
 
-        // 5. SETTERS (one for each field)
-        public void setAppointmentId(int appointmentId) {
+    // 5. SETTERS (one for each field) - WITH VALIDATION
+
+    public void setAppointmentId(int appointmentId) {
+        if (appointmentId > 0) {
             this.appointmentId = appointmentId;
+        } else {
+            System.out.println("Warning: Appointment ID must be positive! Setting to 0.");
+            this.appointmentId = 0;
         }
+    }
 
-        public void setPatientName(String patientName) {
+    public void setPatientName(String patientName) {
+        if (patientName != null && !patientName.trim().isEmpty()) {
             this.patientName = patientName;
+        } else {
+            System.out.println("Warning: Patient name cannot be empty! Keeping current value.");
         }
+    }
 
-        public void setDoctorName(String doctorName) {
+    public void setDoctorName(String doctorName) {
+        if (doctorName != null && !doctorName.trim().isEmpty()) {
             this.doctorName = doctorName;
+        } else {
+            System.out.println("Warning: Doctor name cannot be empty! Keeping current value.");
         }
+    }
 
-        public void setDate(String date) {
+    public void setDate(String date) {
+        if (date != null && !date.trim().isEmpty()) {
             this.date = date;
+        } else {
+            System.out.println("Warning: Date cannot be empty! Keeping current value.");
         }
+    }
 
         // 6. ADDITIONAL METHODS (minimum 2)
 

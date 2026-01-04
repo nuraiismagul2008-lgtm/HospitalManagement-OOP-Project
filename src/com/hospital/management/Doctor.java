@@ -9,10 +9,10 @@ public class Doctor {
 
     // 2. CONSTRUCTOR WITH PARAMETERS
     public Doctor(int doctorId, String name, String specialization, int experienceYears) {
-        this.doctorId = doctorId;
-        this.name = name;
-        this.specialization = specialization;
-        this.experienceYears = experienceYears;
+        setDoctorId(doctorId);
+        setName(name);
+        setSpecialization(specialization);
+        setExperienceYears(experienceYears);
     }
 
     // 3. DEFAULT CONSTRUCTOR (optional)
@@ -37,18 +37,41 @@ public class Doctor {
         return experienceYears;
     }
 
-    // 5. SETTERS (one for each field)
+    // 5. SETTERS (one for each field) - WITH VALIDATION
+
     public void setDoctorId(int doctorId) {
-        this.doctorId = doctorId;
+        if (doctorId > 0) {
+            this.doctorId = doctorId;
+        } else {
+            System.out.println("Warning: Doctor ID must be positive! Setting to 0.");
+            this.doctorId = 0;
+        }
     }
+
     public void setName(String name) {
-        this.name = name;
+        if (name != null && !name.trim().isEmpty()) {
+            this.name = name;
+        } else {
+            System.out.println("Warning: Name cannot be empty! Keeping current value.");
+        }
     }
+
     public void setSpecialization(String specialization) {
-        this.specialization = specialization;
+        if (specialization != null && !specialization.trim().isEmpty()) {
+            this.specialization = specialization;
+        } else {
+            System.out.println("Warning: Specialization cannot be empty! Setting to 'General'.");
+            this.specialization = "General";
+        }
     }
+
     public void setExperienceYears(int experienceYears) {
-        this.experienceYears = experienceYears;
+        if (experienceYears >= 0 && experienceYears <= 60) {
+            this.experienceYears = experienceYears;
+        } else {
+            System.out.println("Warning: Experience years must be between 0 and 60! Setting to 0.");
+            this.experienceYears = 0;
+        }
     }
 
     // 6. ADDITIONAL METHODS (minimum 2)

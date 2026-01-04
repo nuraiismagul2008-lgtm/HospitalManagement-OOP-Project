@@ -1,126 +1,243 @@
 package com.hospital.management;
 
+import java.util.ArrayList;
 import java.util.Scanner;
 
 public class Main {
+    // ArrayLists to store all objects
+    private static ArrayList<Patient> patients = new ArrayList<>();
+    private static ArrayList<Doctor> doctors = new ArrayList<>();
+    private static ArrayList<Appointment> appointments = new ArrayList<>();
+
+    // Scanner for reading user input
+    private static Scanner scanner = new Scanner(System.in);
+
     public static void main(String[] args) {
-        Scanner scanner = new Scanner(System.in);
         System.out.println("---------------==◎◉◎==---------------");
         System.out.println("Welcome to Hospital Management System");
         System.out.println("---------------==◎◉◎==---------------");
         System.out.println();
-        System.out.println("This system will help manage hospital operations");
-        System.out.println("Features:");
-        System.out.println("1. Patient Registration");
-        System.out.println("2. Doctor Scheduling");
-        System.out.println("3. Appointment Booking");
 
-        System.out.println();
-        System.out.println("Course: Object-Oriented Programming - Week 1-3");
+        // Add initial test data
+        addTestData();
 
+        // Menu loop
+        boolean running = true;
+        while (running) {
+            displayMenu();
+            int choice = scanner.nextInt();
+            scanner.nextLine(); // Consume newline
 
-        // Step 2: Create objects
-        // Create Patient objects
-        Patient patient1 = new Patient(1001, "Nurfatima Zulpyhar", 25, "O+");
-        Patient patient2 = new Patient(1002, "Asel Nurgalieva", 15, "A+");
-        Patient patient3 = new Patient();
+            switch (choice) {
+                case 1:
+                    addPatient();
+                    break;
+                case 2:
+                    viewAllPatients();
+                    break;
+                case 3:
+                    addDoctor();
+                    break;
+                case 4:
+                    viewAllDoctors();
+                    break;
+                case 5:
+                    addAppointment();
+                    break;
+                case 6:
+                    viewAllAppointments();
+                    break;
+                case 0:
+                    System.out.println("Goodbye! Thank you for using Hospital Management System!");
+                    running = false;
+                    break;
+                default:
+                    System.out.println("Invalid choice! Please try again.");
+            }
 
-        // Create Doctor objects
-        Doctor doctor1 = new Doctor(2001, "Dr. Kudaibergen", "Cardiology", 10);
-        Doctor doctor2 = new Doctor(2002, "Dr. Kassymova", "Pediatrics", 3);
-
-        // Create Appointment objects
-        Appointment appointment1 = new Appointment(3001, "Nurfatima Zulpyhar", "Dr. Kudaibergen", "2025-01-15");
-        Appointment appointment2 = new Appointment(3002, "Asel Nurgaliyeva", "Dr. Kassymova", "2025-01-16");
-
-        // Step 3: Display all objects
-        System.out.println("--- PATIENTS ---");
-        System.out.println(patient1);
-        System.out.println(patient2);
-        System.out.println();
-
-        System.out.println("--- DOCTORS ---");
-        System.out.println(doctor1);
-        System.out.println(doctor2);
-        System.out.println();
-
-        System.out.println("--- APPOINTMENTS ---");
-        System.out.println(appointment1);
-        System.out.println(appointment2);
-        System.out.println();
-
-        // Step 4: Test getters
-        System.out.println("--- TESTING GETTERS ---");
-        System.out.println("Patient 1 name: " + patient1.getFullName());
-        System.out.println("Patient 1 blood type: " + patient1.getBloodType());
-        System.out.println("Doctor 1 specialization: " + doctor1.getSpecialization());
-        System.out.println("Appointment 1 date: " + appointment1.getDate());
-        System.out.println();
-
-        // Step 5: Test setters
-        System.out.println("--- TESTING SETTERS ---");
-        System.out.println("Updating patient3...");
-        patient3.setPatientId(1003);
-        patient3.setFullName("Yerlan Sadykov");
-        patient3.setAge(70);
-        patient3.setBloodType("B-");
-        System.out.println("Updated: " + patient3);
-        System.out.println();
-
-        System.out.println("Changing appointment2 date...");
-        appointment2.setDate("2025-12-29");
-        System.out.println("Updated: " + appointment2);
-        System.out.println();
-
-        // Step 6: Test additional methods
-
-        // Test Patient methods
-        System.out.println("--- TESTING PATIENT METHODS ---");
-        System.out.println(patient1.getFullName() + " is minor: " + patient1.isMinor());
-        System.out.println(patient2.getFullName() + " is minor: " + patient2.isMinor());
-        System.out.println(patient1.getFullName() + " age category: " + patient1.getAgeCategory());
-        System.out.println(patient3.getFullName() + " age category: " + patient3.getAgeCategory());
-        System.out.println();
-
-        // Test Doctor methods
-        System.out.println("--- TESTING DOCTOR METHODS ---");
-        System.out.println(doctor1.getName() + " is experienced: " + doctor1.isExperienced());
-        System.out.println(doctor2.getName() + " is experienced: " + doctor2.isExperienced());
-        System.out.println(doctor1.getName() + " can perform surgery: " + doctor1.canPerformSurgery());
-        System.out.println(doctor2.getName() + " can perform surgery: " + doctor2.canPerformSurgery());
-        System.out.println();
-
-        // Test Appointment methods
-        System.out.println("--- TESTING APPOINTMENT METHODS ---");
-        System.out.println("Rescheduling appointment " + appointment1.getAppointmentId());
-        appointment1.reschedule("2025-01-18");
-        System.out.println("New date: " + appointment1.getDate());
-        System.out.println();
-
-        System.out.println("Cancelling appointment " + appointment2.getAppointmentId());
-        appointment2.cancel();
-        System.out.println("Is cancelled: " + appointment2.isCancelled());
-        System.out.println();
-
-        // Step 7: Final state
-        System.out.println("--- FINAL STATE ---");
-        System.out.println("Patients:");
-        System.out.println(patient1);
-        System.out.println(patient2);
-        System.out.println(patient3);
-        System.out.println();
-
-        System.out.println("Doctors:");
-        System.out.println(doctor1);
-        System.out.println(doctor2);
-        System.out.println();
-
-        System.out.println("Appointments:");
-        System.out.println(appointment1);
-        System.out.println(appointment2);
-
-        System.out.println("-------------==◎◉◎==--------------");
-        System.out.println("---------Program Complete---------");
-        System.out.println("-------------==◎◉◎==--------------");
+            if (running) {
+                System.out.println("Press Enter to continue...");
+                scanner.nextLine();
+            }
         }
+
+        scanner.close();
+    }
+
+    // Add initial test data
+    private static void addTestData() {
+        patients.add(new Patient(1001, "Aidar Bekzhan", 25, "O+"));
+        patients.add(new Patient(1002, "Nurfatima Zulpyhar", 15, "A+"));
+        patients.add(new Patient(1003, "Yerlan Sadykov", 70, "B-"));
+
+        doctors.add(new Doctor(2001, "Dr. Samat Aliyev", "Cardiology", 10));
+        doctors.add(new Doctor(2002, "Dr. Dinara Kassymova", "Pediatrics", 3));
+
+        appointments.add(new Appointment(3001, "Aidar Bekzhan", "Dr. Samat Aliyev", "2025-01-15"));
+        appointments.add(new Appointment(3002, "Asel Nurgaliyeva", "Dr. Dinara Kassymova", "2025-01-16"));
+    }
+
+    // Display main menu
+    private static void displayMenu() {
+        System.out.println("========================================");
+        System.out.println("        HOSPITAL MANAGEMENT SYSTEM      ");
+        System.out.println("========================================");
+        System.out.println("1. Add Patient");
+        System.out.println("2. View All Patients");
+        System.out.println("3. Add Doctor");
+        System.out.println("4. View All Doctors");
+        System.out.println("5. Add Appointment");
+        System.out.println("6. View All Appointments");
+        System.out.println("0. Exit");
+        System.out.println("========================================");
+        System.out.print("Enter your choice: ");
+    }
+
+    // Add new patient
+    private static void addPatient() {
+        System.out.println("--- ADD PATIENT ---");
+
+        System.out.print("Enter patient ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter full name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter age: ");
+        int age = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter blood type (A+, A-, B+, B-, AB+, AB-, O+, O-): ");
+        String bloodType = scanner.nextLine();
+
+        Patient patient = new Patient(id, name, age, bloodType);
+        patients.add(patient);
+
+        System.out.println("Patient added successfully!");
+    }
+
+    // View all patients
+    private static void viewAllPatients() {
+        System.out.println("========================================");
+        System.out.println("             ALL PATIENTS               ");
+        System.out.println("========================================");
+
+        if (patients.isEmpty()) {
+            System.out.println("No patients found.");
+            return;
         }
+
+        System.out.println("Total patients: " + patients.size());
+        System.out.println();
+
+        for (int i = 0; i < patients.size(); i++) {
+            Patient p = patients.get(i);
+            System.out.println((i + 1) + ". " + p.getFullName());
+            System.out.println("   ID: " + p.getPatientId());
+            System.out.println("   Age: " + p.getAge() + " years");
+            System.out.println("   Blood Type: " + p.getBloodType());
+            System.out.println("   Category: " + p.getAgeCategory());
+            System.out.println("   Minor: " + (p.isMinor() ? "Yes" : "No"));
+            System.out.println();
+        }
+    }
+
+    // Add new doctor
+    private static void addDoctor() {
+        System.out.println("--- ADD DOCTOR ---");
+
+        System.out.print("Enter doctor ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter doctor name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter specialization: ");
+        String specialization = scanner.nextLine();
+
+        System.out.print("Enter years of experience: ");
+        int experience = scanner.nextInt();
+        scanner.nextLine();
+
+        Doctor doctor = new Doctor(id, name, specialization, experience);
+        doctors.add(doctor);
+
+        System.out.println("Doctor added successfully!");
+    }
+
+    // View all doctors
+    private static void viewAllDoctors() {
+        System.out.println("========================================");
+        System.out.println("              ALL DOCTORS               ");
+        System.out.println("========================================");
+
+        if (doctors.isEmpty()) {
+            System.out.println("No doctors found.");
+            return;
+        }
+
+        System.out.println("Total doctors: " + doctors.size());
+        System.out.println();
+
+        for (int i = 0; i < doctors.size(); i++) {
+            Doctor d = doctors.get(i);
+            System.out.println((i + 1) + ". " + d.getName());
+            System.out.println("   ID: " + d.getDoctorId());
+            System.out.println("   Specialization: " + d.getSpecialization());
+            System.out.println("   Experience: " + d.getExperienceYears() + " years");
+            System.out.println("   Experienced: " + (d.isExperienced() ? "Yes" : "No"));
+            System.out.println("   Can Perform Surgery: " + (d.canPerformSurgery() ? "Yes" : "No"));
+            System.out.println();
+        }
+    }
+
+    // Add new appointment
+    private static void addAppointment() {
+        System.out.println("--- ADD APPOINTMENT ---");
+
+        System.out.print("Enter appointment ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter patient name: ");
+        String patientName = scanner.nextLine();
+
+        System.out.print("Enter doctor name: ");
+        String doctorName = scanner.nextLine();
+
+        System.out.print("Enter date (YYYY-MM-DD): ");
+        String date = scanner.nextLine();
+
+        Appointment appointment = new Appointment(id, patientName, doctorName, date);
+        appointments.add(appointment);
+
+        System.out.println("Appointment added successfully!");
+    }
+
+    // View all appointments
+    private static void viewAllAppointments() {
+        System.out.println("========================================");
+        System.out.println("            ALL APPOINTMENTS            ");
+        System.out.println("========================================");
+
+        if (appointments.isEmpty()) {
+            System.out.println("No appointments found.");
+            return;
+        }
+
+        System.out.println("Total appointments: " + appointments.size());
+        System.out.println();
+
+        for (int i = 0; i < appointments.size(); i++) {
+            Appointment a = appointments.get(i);
+            System.out.println((i + 1) + ". Appointment #" + a.getAppointmentId());
+            System.out.println("   Patient: " + a.getPatientName());
+            System.out.println("   Doctor: " + a.getDoctorName());
+            System.out.println("   Date: " + a.getDate());
+            System.out.println("   Status: " + (a.isCancelled() ? "CANCELLED" : "Active"));
+            System.out.println();
+        }
+    }
+}
