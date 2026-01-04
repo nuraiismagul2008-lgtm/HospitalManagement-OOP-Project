@@ -15,12 +15,6 @@ public class Nurse extends MedicalStaff {
         return patientsAssigned;
     }
 
-    public void setPatientsAssigned(int patientsAssigned) {
-        if (patientsAssigned >= 0) {
-            this.patientsAssigned = patientsAssigned;
-        }
-    }
-
     // Override method 1: work()
     @Override
     public void work() {
@@ -31,16 +25,6 @@ public class Nurse extends MedicalStaff {
     @Override
     public String getRole() {
         return "Nurse";
-    }
-
-    // New method specific to Nurse
-    public void assistPatient(String patientName) {
-        System.out.println("Nurse " + name + " is assisting patient: " + patientName);
-    }
-
-    // Another new method
-    public void administerMedication(String medication, String patientName) {
-        System.out.println("Nurse " + name + " is administering " + medication + " to " + patientName);
     }
 
     // Another new method

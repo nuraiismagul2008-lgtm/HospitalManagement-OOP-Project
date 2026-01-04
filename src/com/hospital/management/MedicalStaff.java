@@ -32,34 +32,6 @@ public class MedicalStaff {
         return experienceYears;
     }
 
-    // Setters with validation
-    public void setStaffId(int staffId) {
-        if (staffId > 0) {
-            this.staffId = staffId;
-        } else {
-            System.out.println("Warning: Staff ID must be positive!");
-        }
-    }
-
-    public void setName(String name) {
-        if (name != null && !name.trim().isEmpty()) {
-            this.name = name;
-        } else {
-            System.out.println("Warning: Name cannot be empty!");
-        }
-    }
-
-    public void setDepartment(String department) {
-        if (department != null && !department.trim().isEmpty()) {
-            this.department = department;
-        }
-    }
-
-    public void setExperienceYears(int experienceYears) {
-        if (experienceYears >= 0) {
-            this.experienceYears = experienceYears;
-        }
-    }
 
     // Method to be overridden - describes what staff member does
     public void work() {

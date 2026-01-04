@@ -15,15 +15,7 @@ public class Appointment {
             setDate(date);
         }
 
-        // 3. DEFAULT CONSTRUCTOR (optional)
-        public Appointment() {
-            this.appointmentId = 0;
-            this.patientName = "Unknown";
-            this.doctorName = "Unknown";
-            this.date = "Not scheduled";
-        }
-
-        // 4. GETTERS (one for each field)
+    // 4. GETTERS (one for each field)
         public int getAppointmentId() {
             return appointmentId;
         }
@@ -77,17 +69,7 @@ public class Appointment {
 
         // 6. ADDITIONAL METHODS (minimum 2)
 
-        public void reschedule(String newDate) {
-            this.date = newDate;
-            System.out.println("Appointment " + appointmentId + " rescheduled to " + newDate);
-        }
-
-        public void cancel() {
-            this.date = "CANCELLED";
-            System.out.println("Appointment " + appointmentId + " has been cancelled");
-        }
-
-        public boolean isCancelled() {
+    public boolean isCancelled() {
             return date.equals("CANCELLED");
         }
 

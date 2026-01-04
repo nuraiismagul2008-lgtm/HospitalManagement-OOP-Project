@@ -15,14 +15,6 @@ package com.hospital.management;
             setBloodType(bloodType);
         }
 
-        // 3. DEFAULT CONSTRUCTOR (optional)
-        public Patient() {
-            this.patientId = 0;
-            this.fullName = "Unknown";
-            this.age = 0;
-            this.bloodType = "Unknown";
-        }
-
         // 4. GETTERS (one for each field)
         public int getPatientId() {
             return patientId;
@@ -85,7 +77,7 @@ package com.hospital.management;
         public String getAgeCategory() {
             if (age < 18) {
                 return "Child";
-            } else if (age >= 18 && age < 65) {
+            } else if (age < 65) {
                 return "Adult";
             } else {
                 return "Senior";

@@ -5,21 +5,21 @@ import java.util.Scanner;
 
 public class Main {
     // ArrayLists to store all objects
-    private static ArrayList<Patient> patients = new ArrayList<>();
-    private static ArrayList<Doctor> doctors = new ArrayList<>();
-    private static ArrayList<Appointment> appointments = new ArrayList<>();
-    private static ArrayList<MedicalStaff> medicalStaff = new ArrayList<>();
+    private static final ArrayList<Patient> patients = new ArrayList<>();
+    private static final ArrayList<Doctor> doctors = new ArrayList<>();
+    private static final ArrayList<Appointment> appointments = new ArrayList<>();
+    private static final ArrayList<MedicalStaff> medicalStaff = new ArrayList<>();
 
     // Scanner for reading user input
-    private static Scanner scanner = new Scanner(System.in);
+    private static final Scanner scanner = new Scanner(System.in);
 
-    public static void main(String[] args) {
+    static void main() {
         System.out.println("---------------==◎◉◎==---------------");
         System.out.println("Welcome to Hospital Management System");
         System.out.println("---------------==◎◉◎==---------------");
         System.out.println();
 
-        // Add initial test data
+        // initial test data
         addTestData();
 
         // Menu loop
@@ -67,15 +67,15 @@ public class Main {
                     viewNursesOnly();
                     break;  // FIX: Added missing break statement!
                 case 0:
-                    System.out.println("\nGoodbye! Thank you for using Hospital Management System!");
+                    System.out.println("Goodbye! Thank you for using Hospital Management System!");
                     running = false;
                     break;
                 default:
-                    System.out.println("\nInvalid choice! Please try again.");
+                    System.out.println("Invalid choice! Please try again.");
             }
 
             if (running) {
-                System.out.println("\nPress Enter to continue...");
+                System.out.println("Press Enter to continue...");
                 scanner.nextLine();
             }
         }
@@ -89,17 +89,12 @@ public class Main {
         patients.add(new Patient(1002, "Nurfatima Zulpyhar", 15, "A+"));
         patients.add(new Patient(1003, "Yerlan Sadykov", 70, "B-"));
 
-        doctors.add(new Doctor(2001, "Dr. Samat Aliyev", "Cardiology", 10, "Cardiology"));
-        doctors.add(new Doctor(2002, "Dr. Dinara Kassymova", "Pediatrics", 3, "Pediatrics"));
-
         appointments.add(new Appointment(3001, "Aidar Bekzhan", "Dr. Samat Aliyev", "2025-01-15"));
         appointments.add(new Appointment(3002, "Asel Nurgaliyeva", "Dr. Dinara Kassymova", "2025-01-16"));
 
         medicalStaff.add(new MedicalStaff(5001, "Aibek Nurlan", "Administration", 5));
-        medicalStaff.add(new Doctor(5002, "Samat Aliyev", "Cardiology", 10, "Cardiology"));
-        medicalStaff.add(new Doctor(5003, "Dinara Kassymova", "Pediatrics", 3, "Pediatrics"));
-        medicalStaff.add(new Nurse(5004, "Aigul Bekova", "Emergency", 6, 8));
-        medicalStaff.add(new Nurse(5005, "Madina Omarova", "ICU", 10, 4));
+        medicalStaff.add(new Nurse(5002, "Aigul Bekova", "Emergency", 6, 8));
+        medicalStaff.add(new Nurse(5003, "Madina Omarova", "ICU", 10, 4));
     }
 
     // Display main menu
@@ -151,7 +146,7 @@ public class Main {
     // View all patients
     private static void viewAllPatients() {
         System.out.println("========================================");
-        System.out.println("            ALL PATIENTS                ");
+        System.out.println("               ALL PATIENTS             ");
         System.out.println("========================================");
 
         if (patients.isEmpty()) {
@@ -348,16 +343,15 @@ public class Main {
             System.out.println((i + 1) + ". " + staff); // Calls overridden toString()
 
             // Use instanceof to show child-specific badges
-            if (staff instanceof Doctor) {
-                Doctor doctor = (Doctor) staff; // Downcast
+            if (staff instanceof Doctor doctor) {
                 if (doctor.isSpecialist()) {
                     System.out.println("Specialist Doctor");
                 }
                 if (doctor.canPerformSurgery()) {
                     System.out.println("Can perform surgery");
                 }
-            } else if (staff instanceof Nurse) {
-                Nurse nurse = (Nurse) staff; // Downcast
+            } else if (staff instanceof Nurse nurse) {
+
                 if (nurse.isHeadNurse()) {
                     System.out.println("Head Nurse");
                 }
@@ -391,8 +385,7 @@ public class Main {
         int doctorCount = 0;
 
         for (MedicalStaff staff : medicalStaff) {
-            if (staff instanceof Doctor) { // Filter by type
-                Doctor doctor = (Doctor) staff; // Downcast to access Doctor methods
+            if (staff instanceof Doctor doctor) { // Filter by type
                 doctorCount++;
 
                 System.out.println(doctorCount + ". " + doctor.getName());
@@ -425,8 +418,7 @@ public class Main {
         int nurseCount = 0;
 
         for (MedicalStaff staff : medicalStaff) {
-            if (staff instanceof Nurse) { // Filter by type
-                Nurse nurse = (Nurse) staff; // Downcast to access Nurse methods
+            if (staff instanceof Nurse nurse) { // Filter by type
                 nurseCount++;
 
                 System.out.println(nurseCount + ". " + nurse.getName());
