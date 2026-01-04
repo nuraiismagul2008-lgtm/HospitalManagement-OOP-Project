@@ -8,6 +8,7 @@ public class Main {
     private static ArrayList<Patient> patients = new ArrayList<>();
     private static ArrayList<Doctor> doctors = new ArrayList<>();
     private static ArrayList<Appointment> appointments = new ArrayList<>();
+    private static ArrayList<MedicalStaff> medicalStaff = new ArrayList<>();
 
     // Scanner for reading user input
     private static Scanner scanner = new Scanner(System.in);
@@ -47,16 +48,34 @@ public class Main {
                 case 6:
                     viewAllAppointments();
                     break;
+                case 7:
+                    addMedicalStaff();
+                    break;
+                case 8:
+                    addNurse();
+                    break;
+                case 9:
+                    viewAllMedicalStaff();
+                    break;
+                case 10:
+                    demonstratePolymorphism();
+                    break;
+                case 11:
+                    viewDoctorsOnly();
+                    break;
+                case 12:
+                    viewNursesOnly();
+                    break;  // FIX: Added missing break statement!
                 case 0:
-                    System.out.println("Goodbye! Thank you for using Hospital Management System!");
+                    System.out.println("\nGoodbye! Thank you for using Hospital Management System!");
                     running = false;
                     break;
                 default:
-                    System.out.println("Invalid choice! Please try again.");
+                    System.out.println("\nInvalid choice! Please try again.");
             }
 
             if (running) {
-                System.out.println("Press Enter to continue...");
+                System.out.println("\nPress Enter to continue...");
                 scanner.nextLine();
             }
         }
@@ -70,17 +89,23 @@ public class Main {
         patients.add(new Patient(1002, "Nurfatima Zulpyhar", 15, "A+"));
         patients.add(new Patient(1003, "Yerlan Sadykov", 70, "B-"));
 
-        doctors.add(new Doctor(2001, "Dr. Samat Aliyev", "Cardiology", 10));
-        doctors.add(new Doctor(2002, "Dr. Dinara Kassymova", "Pediatrics", 3));
+        doctors.add(new Doctor(2001, "Dr. Samat Aliyev", "Cardiology", 10, "Cardiology"));
+        doctors.add(new Doctor(2002, "Dr. Dinara Kassymova", "Pediatrics", 3, "Pediatrics"));
 
         appointments.add(new Appointment(3001, "Aidar Bekzhan", "Dr. Samat Aliyev", "2025-01-15"));
         appointments.add(new Appointment(3002, "Asel Nurgaliyeva", "Dr. Dinara Kassymova", "2025-01-16"));
+
+        medicalStaff.add(new MedicalStaff(5001, "Aibek Nurlan", "Administration", 5));
+        medicalStaff.add(new Doctor(5002, "Samat Aliyev", "Cardiology", 10, "Cardiology"));
+        medicalStaff.add(new Doctor(5003, "Dinara Kassymova", "Pediatrics", 3, "Pediatrics"));
+        medicalStaff.add(new Nurse(5004, "Aigul Bekova", "Emergency", 6, 8));
+        medicalStaff.add(new Nurse(5005, "Madina Omarova", "ICU", 10, 4));
     }
 
     // Display main menu
     private static void displayMenu() {
         System.out.println("========================================");
-        System.out.println("        HOSPITAL MANAGEMENT SYSTEM      ");
+        System.out.println("     HOSPITAL MANAGEMENT SYSTEM         ");
         System.out.println("========================================");
         System.out.println("1. Add Patient");
         System.out.println("2. View All Patients");
@@ -88,6 +113,12 @@ public class Main {
         System.out.println("4. View All Doctors");
         System.out.println("5. Add Appointment");
         System.out.println("6. View All Appointments");
+        System.out.println("7. Add Medical Staff (General)");
+        System.out.println("8. Add Nurse");
+        System.out.println("9. View All Medical Staff (Polymorphic)");
+        System.out.println("10. Make All Staff Work (Polymorphism Demo)");
+        System.out.println("11. View Doctors Only");
+        System.out.println("12. View Nurses Only");
         System.out.println("0. Exit");
         System.out.println("========================================");
         System.out.print("Enter your choice: ");
@@ -120,7 +151,7 @@ public class Main {
     // View all patients
     private static void viewAllPatients() {
         System.out.println("========================================");
-        System.out.println("             ALL PATIENTS               ");
+        System.out.println("            ALL PATIENTS                ");
         System.out.println("========================================");
 
         if (patients.isEmpty()) {
@@ -154,14 +185,17 @@ public class Main {
         System.out.print("Enter doctor name: ");
         String name = scanner.nextLine();
 
-        System.out.print("Enter specialization: ");
-        String specialization = scanner.nextLine();
+        System.out.print("Enter department: ");
+        String department = scanner.nextLine();
 
         System.out.print("Enter years of experience: ");
         int experience = scanner.nextInt();
         scanner.nextLine();
 
-        Doctor doctor = new Doctor(id, name, specialization, experience);
+        System.out.print("Enter specialization: ");
+        String specialization = scanner.nextLine();
+
+        Doctor doctor = new Doctor(id, name, department, experience, specialization);
         doctors.add(doctor);
 
         System.out.println("Doctor added successfully!");
@@ -184,7 +218,8 @@ public class Main {
         for (int i = 0; i < doctors.size(); i++) {
             Doctor d = doctors.get(i);
             System.out.println((i + 1) + ". " + d.getName());
-            System.out.println("   ID: " + d.getDoctorId());
+            System.out.println("   ID: " + d.getStaffId());
+            System.out.println("   Department: " + d.getDepartment());
             System.out.println("   Specialization: " + d.getSpecialization());
             System.out.println("   Experience: " + d.getExperienceYears() + " years");
             System.out.println("   Experienced: " + (d.isExperienced() ? "Yes" : "No"));
@@ -219,7 +254,7 @@ public class Main {
     // View all appointments
     private static void viewAllAppointments() {
         System.out.println("========================================");
-        System.out.println("            ALL APPOINTMENTS            ");
+        System.out.println("             ALL APPOINTMENTS           ");
         System.out.println("========================================");
 
         if (appointments.isEmpty()) {
@@ -238,6 +273,177 @@ public class Main {
             System.out.println("   Date: " + a.getDate());
             System.out.println("   Status: " + (a.isCancelled() ? "CANCELLED" : "Active"));
             System.out.println();
+        }
+    }
+
+    // Add General Medical Staff
+    private static void addMedicalStaff() {
+        System.out.println("--- ADD MEDICAL STAFF (GENERAL) ---");
+
+        System.out.print("Enter staff ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter department: ");
+        String department = scanner.nextLine();
+
+        System.out.print("Enter years of experience: ");
+        int experience = scanner.nextInt();
+        scanner.nextLine();
+
+        MedicalStaff staff = new MedicalStaff(id, name, department, experience);
+        medicalStaff.add(staff);
+
+        System.out.println("Medical staff member added successfully!");
+    }
+
+    // Add Nurse
+    private static void addNurse() {
+        System.out.println("--- ADD NURSE ---");
+
+        System.out.print("Enter staff ID: ");
+        int id = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter name: ");
+        String name = scanner.nextLine();
+
+        System.out.print("Enter department: ");
+        String department = scanner.nextLine();
+
+        System.out.print("Enter years of experience: ");
+        int experience = scanner.nextInt();
+        scanner.nextLine();
+
+        System.out.print("Enter number of patients assigned: ");
+        int patients = scanner.nextInt();
+        scanner.nextLine();
+
+        // Polymorphism: Store Nurse as MedicalStaff
+        MedicalStaff staff = new Nurse(id, name, department, experience, patients);
+        medicalStaff.add(staff);
+
+        System.out.println("Nurse added successfully!");
+    }
+
+    // View All Medical Staff (Polymorphic)
+    private static void viewAllMedicalStaff() {
+        System.out.println("========================================");
+        System.out.println("     ALL MEDICAL STAFF (POLYMORPHIC)    ");
+        System.out.println("========================================");
+
+        if (medicalStaff.isEmpty()) {
+            System.out.println("No medical staff found.");
+            return;
+        }
+
+        System.out.println("Total staff: " + medicalStaff.size());
+        System.out.println();
+
+        for (int i = 0; i < medicalStaff.size(); i++) {
+            MedicalStaff staff = medicalStaff.get(i);
+            System.out.println((i + 1) + ". " + staff); // Calls overridden toString()
+
+            // Use instanceof to show child-specific badges
+            if (staff instanceof Doctor) {
+                Doctor doctor = (Doctor) staff; // Downcast
+                if (doctor.isSpecialist()) {
+                    System.out.println("Specialist Doctor");
+                }
+                if (doctor.canPerformSurgery()) {
+                    System.out.println("Can perform surgery");
+                }
+            } else if (staff instanceof Nurse) {
+                Nurse nurse = (Nurse) staff; // Downcast
+                if (nurse.isHeadNurse()) {
+                    System.out.println("Head Nurse");
+                }
+            }
+
+            System.out.println();
+        }
+    }
+
+    // Demonstrate Polymorphism
+    private static void demonstratePolymorphism() {
+        System.out.println("========================================");
+        System.out.println("       POLYMORPHISM DEMONSTRATION       ");
+        System.out.println("========================================");
+        System.out.println("Calling work() on all staff members:");
+
+        for (MedicalStaff staff : medicalStaff) {
+            staff.work(); // Polymorphism: Same method, different behavior!
+        }
+
+        System.out.println("[NOTICE] Same method name (work()), but different output!");
+        System.out.println("         This is POLYMORPHISM in action!                 ");
+    }
+
+    // View Doctors Only
+    private static void viewDoctorsOnly() {
+        System.out.println("========================================");
+        System.out.println("              DOCTORS ONLY              ");
+        System.out.println("========================================");
+
+        int doctorCount = 0;
+
+        for (MedicalStaff staff : medicalStaff) {
+            if (staff instanceof Doctor) { // Filter by type
+                Doctor doctor = (Doctor) staff; // Downcast to access Doctor methods
+                doctorCount++;
+
+                System.out.println(doctorCount + ". " + doctor.getName());
+                System.out.println("   Department: " + doctor.getDepartment());
+                System.out.println("   Specialization: " + doctor.getSpecialization());
+                System.out.println("   Experience: " + doctor.getExperienceYears() + " years");
+
+                if (doctor.isSpecialist()) {
+                    System.out.println("   Status: Specialist");
+                }
+                if (doctor.canPerformSurgery()) {
+                    System.out.println("   Capability: Can perform surgery");
+                }
+
+                System.out.println();
+            }
+        }
+
+        if (doctorCount == 0) {
+            System.out.println("No doctors found.");
+        }
+    }
+
+    // View Nurses Only
+    private static void viewNursesOnly() {
+        System.out.println("========================================");
+        System.out.println("               NURSES ONLY              ");
+        System.out.println("========================================");
+
+        int nurseCount = 0;
+
+        for (MedicalStaff staff : medicalStaff) {
+            if (staff instanceof Nurse) { // Filter by type
+                Nurse nurse = (Nurse) staff; // Downcast to access Nurse methods
+                nurseCount++;
+
+                System.out.println(nurseCount + ". " + nurse.getName());
+                System.out.println("   Department: " + nurse.getDepartment());
+                System.out.println("   Patients Assigned: " + nurse.getPatientsAssigned());
+                System.out.println("   Experience: " + nurse.getExperienceYears() + " years");
+
+                if (nurse.isHeadNurse()) {
+                    System.out.println("   Status: Head Nurse");
+                }
+
+                System.out.println();
+            }
+        }
+
+        if (nurseCount == 0) {
+            System.out.println("No nurses found.");
         }
     }
 }

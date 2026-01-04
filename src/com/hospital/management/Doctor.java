@@ -1,99 +1,59 @@
 package com.hospital.management;
 
-public class Doctor {
-    // 1. PRIVATE FIELDS (4 fields)
-    private int doctorId;
-    private String name;
+public class Doctor extends MedicalStaff {
+    // Additional field specific to Doctor
     private String specialization;
-    private int experienceYears;
 
-    // 2. CONSTRUCTOR WITH PARAMETERS
-    public Doctor(int doctorId, String name, String specialization, int experienceYears) {
-        setDoctorId(doctorId);
-        setName(name);
-        setSpecialization(specialization);
-        setExperienceYears(experienceYears);
+    // Constructor - uses super() to call parent constructor
+    public Doctor(int staffId, String name, String department, int experienceYears, String specialization) {
+        super(staffId, name, department, experienceYears); // MUST BE FIRST!
+        this.specialization = specialization;
     }
 
-    // 3. DEFAULT CONSTRUCTOR (optional)
-    public Doctor() {
-        this.doctorId = 0;
-        this.name = "Unknown";
-        this.specialization = "General";
-        this.experienceYears = 0;
-    }
-
-    // 4. GETTERS (one for each field)
-    public int getDoctorId() {
-        return doctorId;
-    }
-    public String getName() {
-        return name;
-    }
+    // Getter and Setter for new field
     public String getSpecialization() {
         return specialization;
-    }
-    public int getExperienceYears() {
-        return experienceYears;
-    }
-
-    // 5. SETTERS (one for each field) - WITH VALIDATION
-
-    public void setDoctorId(int doctorId) {
-        if (doctorId > 0) {
-            this.doctorId = doctorId;
-        } else {
-            System.out.println("Warning: Doctor ID must be positive! Setting to 0.");
-            this.doctorId = 0;
-        }
-    }
-
-    public void setName(String name) {
-        if (name != null && !name.trim().isEmpty()) {
-            this.name = name;
-        } else {
-            System.out.println("Warning: Name cannot be empty! Keeping current value.");
-        }
     }
 
     public void setSpecialization(String specialization) {
         if (specialization != null && !specialization.trim().isEmpty()) {
             this.specialization = specialization;
         } else {
-            System.out.println("Warning: Specialization cannot be empty! Setting to 'General'.");
-            this.specialization = "General";
+            System.out.println("Warning: Specialization cannot be empty!");
         }
     }
 
-    public void setExperienceYears(int experienceYears) {
-        if (experienceYears >= 0 && experienceYears <= 60) {
-            this.experienceYears = experienceYears;
-        } else {
-            System.out.println("Warning: Experience years must be between 0 and 60! Setting to 0.");
-            this.experienceYears = 0;
-        }
+    // Override method 1: work()
+    @Override
+    public void work() {
+        System.out.println("Dr. " + name + " is treating patients in " + specialization + " department.");
     }
 
-    // 6. ADDITIONAL METHODS (minimum 2)
-
-    public boolean isExperienced() {
-        return experienceYears > 5;
+    // Override method 2: getRole()
+    @Override
+    public String getRole() {
+        return "Doctor";
     }
 
+    // New method specific to Doctor
+    public void diagnosePatient(String patientName) {
+        System.out.println("Dr. " + name + " is diagnosing patient: " + patientName);
+    }
+
+    // Another new method
     public boolean canPerformSurgery() {
         return specialization.equals("Surgeon") ||
                 specialization.equals("Cardiology") ||
                 specialization.equals("Neurology");
     }
 
-    // 7. toString() METHOD
+    // Another new method
+    public boolean isSpecialist() {
+        return experienceYears >= 10;
+    }
+
     @Override
     public String toString() {
-        return "Doctor{" +
-                "doctorId=" + doctorId +
-                ", name='" + name + '\'' +
-                ", specialization='" + specialization + '\'' +
-                ", experienceYears=" + experienceYears +
-                '}';
+        return super.toString() + " | Specialization: " + specialization;
     }
 }
