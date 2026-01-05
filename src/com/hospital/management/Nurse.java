@@ -16,7 +16,7 @@ public class Nurse extends MedicalStaff {
     }
 
     public void setPatientsAssigned(int patientsAssigned) {
-        if (patientsAssigned >= 0 && patientsAssigned <= 50) {
+        if (patientsAssigned >= 0) {
             this.patientsAssigned = patientsAssigned;
         } else {
             System.out.println("Warning: Patients assigned must be between 0 and 50! Setting to 0.");
