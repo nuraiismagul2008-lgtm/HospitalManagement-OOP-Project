@@ -2,7 +2,7 @@ package com.hospital.management;
 
 public class Doctor extends MedicalStaff {
     // Additional field specific to Doctor
-    private final String specialization;
+    private String specialization;
 
     // Constructor - uses super() to call parent constructor
     public Doctor(int staffId, String name, String department, int experienceYears, String specialization) {
@@ -15,6 +15,15 @@ public class Doctor extends MedicalStaff {
         return specialization;
     }
 
+    public void setSpecialization(String specialization) {
+        if (specialization != null && !specialization.trim().isEmpty()) {
+            this.specialization = specialization;
+        } else {
+            System.out.println("Warning: Specialization cannot be empty! Setting to 'General'.");
+            this.specialization = "General";
+        }
+    }
+
     // Override method 1: work()
     @Override
     public void work() {
@@ -25,6 +34,11 @@ public class Doctor extends MedicalStaff {
     @Override
     public String getRole() {
         return "Doctor";
+    }
+
+    // New method specific to Doctor
+    public void diagnosePatient(String patientName) {
+        System.out.println("Dr. " + name + " is diagnosing patient: " + patientName);
     }
 
     // Another new method

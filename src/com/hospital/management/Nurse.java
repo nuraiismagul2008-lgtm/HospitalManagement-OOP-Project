@@ -6,13 +6,22 @@ public class Nurse extends MedicalStaff {
 
     // Constructor - uses super()
     public Nurse(int staffId, String name, String department, int experienceYears, int patientsAssigned) {
-        super(staffId, name, department, experienceYears); // MUST BE FIRST!
+        super(staffId, name, department, experienceYears);
         this.patientsAssigned = patientsAssigned;
     }
 
     // Getter and Setter
     public int getPatientsAssigned() {
         return patientsAssigned;
+    }
+
+    public void setPatientsAssigned(int patientsAssigned) {
+        if (patientsAssigned >= 0 && patientsAssigned <= 50) {
+            this.patientsAssigned = patientsAssigned;
+        } else {
+            System.out.println("Warning: Patients assigned must be between 0 and 50! Setting to 0.");
+            this.patientsAssigned = 0;
+        }
     }
 
     // Override method 1: work()
@@ -25,6 +34,16 @@ public class Nurse extends MedicalStaff {
     @Override
     public String getRole() {
         return "Nurse";
+    }
+
+    // New method specific to Nurse
+    public void assistPatient(String patientName) {
+        System.out.println("Nurse " + name + " is assisting patient: " + patientName);
+    }
+
+    // Another new method
+    public void administerMedication(String medication, String patientName) {
+        System.out.println("Nurse " + name + " is administering " + medication + " to " + patientName);
     }
 
     // Another new method
