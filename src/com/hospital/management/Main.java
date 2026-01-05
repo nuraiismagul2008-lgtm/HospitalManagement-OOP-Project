@@ -6,10 +6,8 @@ import java.util.Scanner;
 public class Main {
     // ArrayLists to store all objects
     private static final ArrayList<Patient> patients = new ArrayList<>();
-    private static final ArrayList<Doctor> doctors = new ArrayList<>();
     private static final ArrayList<Appointment> appointments = new ArrayList<>();
     private static final ArrayList<MedicalStaff> medicalStaff = new ArrayList<>();
-
     // Scanner for reading user input
     private static final Scanner scanner = new Scanner(System.in);
 
@@ -40,32 +38,29 @@ public class Main {
                     addDoctor();
                     break;
                 case 4:
-                    viewAllDoctors();
-                    break;
-                case 5:
-                    addAppointment();
-                    break;
-                case 6:
-                    viewAllAppointments();
-                    break;
-                case 7:
-                    addMedicalStaff();
-                    break;
-                case 8:
-                    addNurse();
-                    break;
-                case 9:
-                    viewAllMedicalStaff();
-                    break;
-                case 10:
-                    demonstratePolymorphism();
-                    break;
-                case 11:
                     viewDoctorsOnly();
                     break;
-                case 12:
+                case 5:
+                    addNurse();
+                    break;
+                case 6:
                     viewNursesOnly();
-                    break;  // FIX: Added missing break statement!
+                    break;
+                case 7:
+                    addAppointment();
+                    break;
+                case 8:
+                    viewAllAppointments();
+                    break;
+                case 9:
+                    addMedicalStaff();
+                    break;
+                case 10:
+                    viewAllMedicalStaff();
+                    break;
+                case 11:
+                    demonstratePolymorphism();
+                    break;
                 case 0:
                     System.out.println("Goodbye! Thank you for using Hospital Management System!");
                     running = false;
@@ -190,37 +185,9 @@ public class Main {
         System.out.print("Enter specialization: ");
         String specialization = scanner.nextLine();
 
-        Doctor doctor = new Doctor(id, name, department, experience, specialization);
-        doctors.add(doctor);
-
+        MedicalStaff staff = new Doctor(id,name, department, experience,specialization);
+        medicalStaff.add(staff);
         System.out.println("Doctor added successfully!");
-    }
-
-    // View all doctors
-    private static void viewAllDoctors() {
-        System.out.println("========================================");
-        System.out.println("              ALL DOCTORS               ");
-        System.out.println("========================================");
-
-        if (doctors.isEmpty()) {
-            System.out.println("No doctors found.");
-            return;
-        }
-
-        System.out.println("Total doctors: " + doctors.size());
-        System.out.println();
-
-        for (int i = 0; i < doctors.size(); i++) {
-            Doctor d = doctors.get(i);
-            System.out.println((i + 1) + ". " + d.getName());
-            System.out.println("   ID: " + d.getStaffId());
-            System.out.println("   Department: " + d.getDepartment());
-            System.out.println("   Specialization: " + d.getSpecialization());
-            System.out.println("   Experience: " + d.getExperienceYears() + " years");
-            System.out.println("   Experienced: " + (d.isExperienced() ? "Yes" : "No"));
-            System.out.println("   Can Perform Surgery: " + (d.canPerformSurgery() ? "Yes" : "No"));
-            System.out.println();
-        }
     }
 
     // Add new appointment
@@ -369,11 +336,8 @@ public class Main {
         System.out.println("Calling work() on all staff members:");
 
         for (MedicalStaff staff : medicalStaff) {
-            staff.work(); // Polymorphism: Same method, different behavior!
+            staff.work();
         }
-
-        System.out.println("[NOTICE] Same method name (work()), but different output!");
-        System.out.println("         This is POLYMORPHISM in action!                 ");
     }
 
     // View Doctors Only
