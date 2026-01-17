@@ -1,4 +1,4 @@
-package com.hospital.management;
+package com.hospital.management.model;
 
 public class Appointment {
         // 1. PRIVATE FIELDS (4 fields)

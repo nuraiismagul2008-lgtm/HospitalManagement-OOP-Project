@@ -1,6 +1,6 @@
-package com.hospital.management;
+package com.hospital.management.model;
 
-public class Nurse extends MedicalStaff {
+public class Nurse extends MedicalStaff implements Treatable {
     // Additional field specific to Nurse
     private int patientsAssigned;
 
@@ -49,6 +49,17 @@ public class Nurse extends MedicalStaff {
     // Another new method
     public boolean isHeadNurse() {
         return experienceYears >= 8 && patientsAssigned <= 5;
+    }
+
+    // Implement Treatable interface
+    @Override
+    public void treat(String patientName) {
+        System.out.println("Nurse " + name + " is providing care to patient: " + patientName);
+    }
+
+    @Override
+    public String getTreatmentType() {
+        return "Nursing Care";
     }
 
     @Override

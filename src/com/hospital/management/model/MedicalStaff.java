@@ -1,6 +1,6 @@
-package com.hospital.management;
+package com.hospital.management.model;
 
-public class MedicalStaff {
+public abstract class MedicalStaff {
     // Protected fields - accessible in child classes
     protected int staffId;
     protected String name;
@@ -67,15 +67,10 @@ public class MedicalStaff {
         }
     }
 
-    // Method to be overridden - describes what staff member does
-    public void work() {
-        System.out.println(name + " is working in the hospital.");
-    }
+    // Abstract methods - children MUST implement
+    public abstract void work();
 
-    // Another method to be overridden - returns role
-    public String getRole() {
-        return "Medical Staff";
-    }
+    public abstract String getRole();
 
     // Method that won't be overridden - checks experience level
     public boolean isExperienced() {

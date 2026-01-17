@@ -1,6 +1,6 @@
-package com.hospital.management;
+package com.hospital.management.model;
 
-public class Doctor extends MedicalStaff {
+public class Doctor extends MedicalStaff implements Treatable {
     // Additional field specific to Doctor
     private String specialization;
 
@@ -51,6 +51,18 @@ public class Doctor extends MedicalStaff {
     // Another new method
     public boolean isSpecialist() {
         return experienceYears >= 10;
+    }
+
+    // Implement Treatable interface
+    @Override
+    public void treat(String patientName) {
+        System.out.println("Dr. " + name + " is treating patient: " + patientName +
+                " with " + specialization + " expertise.");
+    }
+
+    @Override
+    public String getTreatmentType() {
+        return specialization + " Treatment";
     }
 
     @Override

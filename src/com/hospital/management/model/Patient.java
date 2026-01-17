@@ -1,4 +1,4 @@
-package com.hospital.management;
+package com.hospital.management.model;
 
     public class Patient {
         // 1. PRIVATE FIELDS (minimum 4)
