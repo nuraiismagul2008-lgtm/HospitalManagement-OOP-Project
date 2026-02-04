@@ -1,3 +1,4 @@
+//main
 package com.hospital.management;
 import com.hospital.management.menu.Menu;
 import com.hospital.management.menu.MenuManagment;

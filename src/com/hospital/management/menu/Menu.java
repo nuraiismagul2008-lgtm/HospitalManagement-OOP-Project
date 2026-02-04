@@ -1,3 +1,4 @@
+//menu
 package com.hospital.management.menu;
 
 public interface Menu {

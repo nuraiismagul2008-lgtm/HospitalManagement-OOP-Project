@@ -1,3 +1,4 @@
+//invalid input
 package com.hospital.management.exception;
 
 public class InvalidInput extends Exception {
