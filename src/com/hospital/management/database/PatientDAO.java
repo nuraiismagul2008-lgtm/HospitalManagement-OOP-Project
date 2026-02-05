@@ -106,7 +106,7 @@ public class PatientDAO {
         return null;
     }
 
-    // ==================== UPDATE ====================
+    //UPDATE
     public boolean updatePatient(Patient patient) {
         String sql = "UPDATE patient SET full_name = ?, age = ?, blood_type = ? WHERE patient_id = ?";
         Connection connection = DatabaseConnection.getConnection();
